@@ -6,12 +6,34 @@
 #include "polygon.hpp"
 #include "vertice.hpp"
 using namespace std;
-int main()
-{
-    vector<Vertice> square = { Vertice(0,0,0),Vertice(100,0,0) ,Vertice(0,100,0) ,Vertice(100,100,0) };
 
-    Polygon canvas = Polygon(4, square);
-    canvas.printVerticesLocations();
+void initializeCanvas(vector<vector<string>> canvas, int sizex, int sizey)
+{
+
+    for (int x = 0; x < sizey; x++)
+    {
+        
+        for (int y = 0; y < sizex;y++)
+        {
+            canvas[x][y] = ".";
+            cout << canvas[x][y];
+        }
+        cout << endl;
+    }
+
+    
 
 }
+
+int main()
+{
+    int sizex = 20;
+    int sizey = 10;
+    vector<vector<string>> canvas(sizex, vector<string>(sizey));
+    
+    initializeCanvas(canvas, sizex, sizey);
+
+}
+
+
 

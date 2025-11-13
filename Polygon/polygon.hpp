@@ -13,13 +13,15 @@ class Polygon {
 	
 	public:
 		//constructor
-		Polygon(int pnumvertices, vector<Vertice> pvertices);
+		Polygon(vector<Vertice> pvertices);
 
 		//vars
-		int numvertices;
+		
 		vector<Vertice> vertices;
 
 		void printVerticesLocations();
+		void connectVertices();
 };
+
 
 #endif
