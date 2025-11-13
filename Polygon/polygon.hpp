@@ -20,7 +20,7 @@ class Polygon {
 		vector<Vertice> vertices;
 
 		void printVerticesLocations();
-		void connectVertices();
+		
 };
 
 
