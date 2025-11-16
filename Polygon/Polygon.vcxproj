@@ -125,12 +125,12 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="polygon.cpp" />
-    <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="cube.cpp" />
     <ClCompile Include="vertice.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="polygon.hpp" />
-    <ClInclude Include="Cube.hpp" />
+    <ClInclude Include="cube.hpp" />
     <ClInclude Include="vertice.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

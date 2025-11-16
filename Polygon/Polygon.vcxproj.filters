@@ -24,7 +24,7 @@
     <ClCompile Include="vertice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cube.cpp">
+    <ClCompile Include="cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,7 +35,7 @@
     <ClInclude Include="vertice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cube.hpp">
+    <ClInclude Include="cube.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

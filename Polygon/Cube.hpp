@@ -7,16 +7,18 @@
 
 class Cube
 {
-	Cube(int scalar, Vertice transform, int height);
+	public:
+		Cube(int scalar, Vertice transform, int height);
 	
-	float r;
-	int height;
-	int scalar;
-	Vertice transform;
+		float r;
+		int height;
+		int scalar;
+		Vertice transform;
+		vector<vector<Vertice>> faces;
 
-	void rotate();
-	vector<vector<Vertice>> faces;
-	vector<int> E(int x, int y, int z);
+		vector<vector<Vertice>> rotate(float rotation);
+		void print();
+		vector<int> E(float x, float y, float z);
 	
 };
 

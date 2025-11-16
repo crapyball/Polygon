@@ -6,6 +6,10 @@
 #include "polygon.hpp"
 #include "vertice.hpp"
 #include <math.h>
+#include "cube.hpp"
+#include <chrono>
+#include <ctime>
+#include <thread>
 using namespace std;
 
 void initializeCanvas(vector<vector<string>>& canvas, int sizex, int sizey)
@@ -46,12 +50,12 @@ void printCanvas(vector<vector<string>> canvas)
     
 }
 
-void connect2face1(Vertice one, Vertice two, vector<vector<string>>& canvas)
+void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
 {
     //if on the same point
     if (one.x == two.x && one.y == two.y)
     {
-        cout << "same";
+       
         return;
     }
 
@@ -415,6 +419,7 @@ cout << "shift count: " << shift_count << endl;
 
 int main()
 {
+    const float pi = 3.1415926535897932384626433832795;
     int sizex = 100;
     int sizey = 50;
     vector<vector<string>> canvas;
@@ -423,22 +428,54 @@ int main()
     
     vector<Vertice> face1 = { Vertice(30, 20, 0), Vertice(60, 20, 0), Vertice(60, 35, 0), Vertice(30,35,0) };
 
-
+    /*
     connect2face1(face1[0], face1[1], canvas);
     connect2face1(face1[1], face1[2], canvas);
     connect2face1(face1[2], face1[3], canvas);
     connect2face1(face1[3], face1[0], canvas);
+    */
     
-    printCanvas(canvas);
     
-    Vertice transform = Vertice(2, 1, -5);
+    Vertice transform = Vertice(2, 1, -10);
     //rotation in radians
     float r = 0;
-    int scalar = 50;
+    int scalar = 200;
+    int height = 1;
+    Cube cube = Cube(scalar, transform, height);
+    
+    for (int i = 0; i < cube.faces.size(); i++)
+    {
+        connectVertices(cube.faces[i][0], cube.faces[i][1], canvas);
+        connectVertices(cube.faces[i][1], cube.faces[i][2], canvas);
+        connectVertices(cube.faces[i][2], cube.faces[i][3], canvas);
+        connectVertices(cube.faces[i][3], cube.faces[i][0], canvas);
+    }
 
-    //vector<Vertice> face1 = { 
-     //   Vertice(E()
-    //};
+    printCanvas(canvas);
+    
+    int counter = 1;
+    while (true)
+    {
+       
+        
+        r += .2;
+        cube.rotate(r);
+        //cout << endl << counter << endl;
+        for (int i = 0; i < cube.faces.size(); i++)
+        {
+            connectVertices(cube.faces[i][0], cube.faces[i][1], canvas);
+            connectVertices(cube.faces[i][1], cube.faces[i][2], canvas);
+            connectVertices(cube.faces[i][2], cube.faces[i][3], canvas);
+            connectVertices(cube.faces[i][3], cube.faces[i][0], canvas);
+        }
+        printCanvas(canvas);
+        resetCanvas(canvas);
+        
+        //cube.print();
+
+        counter += 1;
+        this_thread::sleep_for(chrono::duration<double>(.3));
+    }
     
 }
 
