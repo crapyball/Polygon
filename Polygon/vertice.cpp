@@ -1,5 +1,11 @@
 #include "vertice.hpp"
 
+Vertice::Vertice()
+{
+	x = 0;
+	y = 0;
+	z = 0;
+}
 Vertice::Vertice(int px, int py, int pz)
 {
 	x = px;

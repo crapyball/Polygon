@@ -22,11 +22,22 @@ void initializeCanvas(vector<vector<string>>& canvas, int sizex, int sizey)
     }
 }
 
-void printCanvas(vector<vector<string>> canvas, int sizex, int sizey)
+void resetCanvas(vector<vector<string>>& canvas)
 {
-    for (int y = sizey-1; y>0; y--)
+    for (int y = 0; y < canvas[0].size(); y++)
     {
-        for (int x = 0; x < sizex;x++)
+        for (int x = 0; x < canvas.size();x++)
+        {
+            canvas[x][y] = ".";
+        }
+    }
+}
+
+void printCanvas(vector<vector<string>> canvas)
+{
+    for (int y = canvas[0].size() - 1; y>0; y--)
+    {
+        for (int x = 0; x < canvas.size() ;x++)
         {
             cout << canvas[x][y];
         }
@@ -35,7 +46,7 @@ void printCanvas(vector<vector<string>> canvas, int sizex, int sizey)
     
 }
 
-void connect2Vertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
+void connect2face1(Vertice one, Vertice two, vector<vector<string>>& canvas)
 {
     //if on the same point
     if (one.x == two.x && one.y == two.y)
@@ -400,8 +411,7 @@ cout << "shift count: " << shift_count << endl;
 
 
 
-    
-    
+
 
 int main()
 {
@@ -410,13 +420,26 @@ int main()
     vector<vector<string>> canvas;
     initializeCanvas(canvas, sizex, sizey);
     
+    
+    vector<Vertice> face1 = { Vertice(30, 20, 0), Vertice(60, 20, 0), Vertice(60, 35, 0), Vertice(30,35,0) };
 
-    Polygon face1 = Polygon(vector<Vertice> {Vertice(30, 20, 0), Vertice(60, 20, 0), Vertice(60, 35, 0), Vertice(30,35,0) });
-    connect2Vertices(face1.vertices[0], face1.vertices[1], canvas);
-    connect2Vertices(face1.vertices[1], face1.vertices[2], canvas);
-    connect2Vertices(face1.vertices[2], face1.vertices[3], canvas);
-    connect2Vertices(face1.vertices[3], face1.vertices[0], canvas);
-    printCanvas(canvas, sizex, sizey);
+
+    connect2face1(face1[0], face1[1], canvas);
+    connect2face1(face1[1], face1[2], canvas);
+    connect2face1(face1[2], face1[3], canvas);
+    connect2face1(face1[3], face1[0], canvas);
+    
+    printCanvas(canvas);
+    
+    Vertice transform = Vertice(2, 1, -5);
+    //rotation in radians
+    float r = 0;
+    int scalar = 50;
+
+    //vector<Vertice> face1 = { 
+     //   Vertice(E()
+    //};
+    
 }
 
 

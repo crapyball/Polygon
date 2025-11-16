@@ -4,7 +4,7 @@
 class Vertice {
 
 public:
-
+	Vertice();
 	Vertice(int px, int py, int pz);
 	int x;
 	int y;

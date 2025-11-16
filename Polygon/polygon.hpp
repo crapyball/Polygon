@@ -13,13 +13,13 @@ class Polygon {
 	
 	public:
 		//constructor
-		Polygon(vector<Vertice> pvertices);
+		Polygon(vector<Vertice> pface1);
 
 		//vars
 		
-		vector<Vertice> vertices;
+		vector<Vertice> face1;
 
-		void printVerticesLocations();
+		void printface1Locations();
 		
 };
 
