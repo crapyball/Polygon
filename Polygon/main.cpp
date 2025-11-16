@@ -21,10 +21,26 @@ void initializeCanvas(vector<vector<string>>& canvas, int sizex, int sizey)
         for (int x = 0; x < sizex;x++)
         {
             canvas[x].resize(sizey);
-            canvas[x][y] = ".";  
+            canvas[x][y] = " ";  
         }
     }
 }
+
+void print(const std::vector<std::vector<std::string>>& v) {
+    std::string out;
+    out.reserve(10'000); // reserve some space (increase if needed)
+
+    for (const auto& row : v) {
+        for (const auto& s : row) {
+            out += s;
+            out += ' ';
+        }
+        out += '\n';
+    }
+
+    std::cout << out;
+}
+
 
 void resetCanvas(vector<vector<string>>& canvas)
 {
@@ -32,7 +48,7 @@ void resetCanvas(vector<vector<string>>& canvas)
     {
         for (int x = 0; x < canvas.size();x++)
         {
-            canvas[x][y] = ".";
+            canvas[x][y] = " ";
         }
     }
 }
@@ -170,11 +186,8 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
             vert_bar_count = abs(deltay) - shift_count;
             shift_increment = abs(deltay / deltax);
 
-            cout << "upslash count: " << shift_count << endl;
+        
 
-            cout << "dash coun: " << dash_count << endl;
-            cout << "slash increment: " << shift_increment << endl;
-            cout << "vert bar count: " << vert_bar_count << endl;
 
             int xinc = 0;
             int yinc = 1;
@@ -420,7 +433,7 @@ cout << "shift count: " << shift_count << endl;
 int main()
 {
     const float pi = 3.1415926535897932384626433832795;
-    int sizex = 100;
+    int sizex = 65;
     int sizey = 50;
     vector<vector<string>> canvas;
     initializeCanvas(canvas, sizex, sizey);
@@ -474,7 +487,7 @@ int main()
         //cube.print();
 
         counter += 1;
-        this_thread::sleep_for(chrono::duration<double>(.3));
+        this_thread::sleep_for(chrono::duration<double>(.15));
     }
     
 }
