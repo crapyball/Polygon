@@ -26,20 +26,6 @@ void initializeCanvas(vector<vector<string>>& canvas, int sizex, int sizey)
     }
 }
 
-void print(const std::vector<std::vector<std::string>>& v) {
-    std::string out;
-    out.reserve(10'000); // reserve some space (increase if needed)
-
-    for (const auto& row : v) {
-        for (const auto& s : row) {
-            out += s;
-            out += ' ';
-        }
-        out += '\n';
-    }
-
-    std::cout << out;
-}
 
 
 void resetCanvas(vector<vector<string>>& canvas)
@@ -53,15 +39,25 @@ void resetCanvas(vector<vector<string>>& canvas)
     }
 }
 
-void printCanvas(vector<vector<string>> canvas)
+void printCanvas(vector<vector<string>> canvas, int sizex, int sizey)
 {
+    for (int i = 0; i < sizex +2; i++)
+    {
+        cout << "-";
+    }
+    cout << endl;
     for (int y = canvas[0].size() - 1; y>0; y--)
     {
+        cout << "|";
         for (int x = 0; x < canvas.size() ;x++)
         {
-            cout << canvas[x][y];
+            cout  << canvas[x][y];
         }
-        cout << endl;
+        cout << "|" << endl;
+    }
+    for (int i = 0; i < sizex+2; i++)
+    {
+        cout << "-";
     }
     
 }
@@ -432,27 +428,21 @@ cout << "shift count: " << shift_count << endl;
 
 int main()
 {
-    const float pi = 3.1415926535897932384626433832795;
-    int sizex = 65;
+    const float PI = 3.1415926535897932384626433832795;
+    int sizex = 100;
     int sizey = 50;
     vector<vector<string>> canvas;
     initializeCanvas(canvas, sizex, sizey);
     
-    
-    vector<Vertice> face1 = { Vertice(30, 20, 0), Vertice(60, 20, 0), Vertice(60, 35, 0), Vertice(30,35,0) };
-
+    Vertice point1 = Vertice(0, 0, 0);
+    Vertice point2 = Vertice(10, 30, 0);
+    connectVertices(point2, point1, canvas);
+    printCanvas(canvas,sizex,sizey);
     /*
-    connect2face1(face1[0], face1[1], canvas);
-    connect2face1(face1[1], face1[2], canvas);
-    connect2face1(face1[2], face1[3], canvas);
-    connect2face1(face1[3], face1[0], canvas);
-    */
-    
-    
     Vertice transform = Vertice(2, 1, -10);
     //rotation in radians
     float r = 0;
-    int scalar = 200;
+    float scalar = 200;
     int height = 1;
     Cube cube = Cube(scalar, transform, height);
     
@@ -467,7 +457,7 @@ int main()
     printCanvas(canvas);
     
     int counter = 1;
-    while (true)
+    while (counter < 11)
     {
        
         
@@ -477,19 +467,27 @@ int main()
         for (int i = 0; i < cube.faces.size(); i++)
         {
             connectVertices(cube.faces[i][0], cube.faces[i][1], canvas);
-            connectVertices(cube.faces[i][1], cube.faces[i][2], canvas);
-            connectVertices(cube.faces[i][2], cube.faces[i][3], canvas);
-            connectVertices(cube.faces[i][3], cube.faces[i][0], canvas);
+            //connectVertices(cube.faces[i][1], cube.faces[i][2], canvas);
+            //connectVertices(cube.faces[i][2], cube.faces[i][3], canvas);
+            //connectVertices(cube.faces[i][3], cube.faces[i][0], canvas);
+
+            cout << "face 0: " << "x: " << cube.faces[i][0].x << "y: " << cube.faces[i][0].y << "z: "<< cube.faces[i][0].z << endl;
+            cout << "face 1: " << "x: " << cube.faces[i][1].x << "y: " << cube.faces[i][1].y << "z: " << cube.faces[i][1].z << endl;
+            //cout << "face 2: " << "x: " << cube.faces[i][2].x << "y: " << cube.faces[i][2].y << "z: " << cube.faces[i][2].z << endl;
+            //cout << "face 3: " << "x: " << cube.faces[i][3].x << "y: " << cube.faces[i][3].y << "z: " << cube.faces[i][3].z << endl;
         }
         printCanvas(canvas);
+        cout << "r: " << r << endl;
+        
         resetCanvas(canvas);
         
         //cube.print();
 
         counter += 1;
         this_thread::sleep_for(chrono::duration<double>(.15));
+        
     }
-    
+    */
 }
 
 

@@ -6,21 +6,21 @@ Vertice::Vertice()
 	y = 0;
 	z = 0;
 }
-Vertice::Vertice(int px, int py, int pz)
+Vertice::Vertice(float px, float py, float pz)
 {
 	x = px;
 	y = py;
 	z = pz;
 }
-int Vertice::getx()
+float Vertice::getx()
 {
 	return x;
 }
-int Vertice::gety()
+float Vertice::gety()
 {
 	return y;
 }
-int Vertice::getz()
+float Vertice::getz()
 {
 	return z;
 }

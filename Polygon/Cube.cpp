@@ -2,7 +2,7 @@
 #include "vertice.hpp"
 
 
-Cube::Cube(int scalar, Vertice transform, int height)
+Cube::Cube(float scalar, Vertice transform, int height)
 {	
 	r = 0;
 	this->height = height;

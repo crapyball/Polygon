@@ -5,14 +5,14 @@ class Vertice {
 
 public:
 	Vertice();
-	Vertice(int px, int py, int pz);
-	int x;
-	int y;
-	int z;
+	Vertice(float px, float py, float pz);
+	float x;
+	float y;
+	float z;
 	
-	int getx();
-	int gety();
-	int getz();
+	float getx();
+	float gety();
+	float getz();
 };
 
 #endif

@@ -8,11 +8,11 @@
 class Cube
 {
 	public:
-		Cube(int scalar, Vertice transform, int height);
+		Cube(float scalar, Vertice transform, int height);
 	
 		float r;
 		int height;
-		int scalar;
+		float scalar;
 		Vertice transform;
 		vector<vector<Vertice>> faces;
 
