@@ -14,6 +14,10 @@ using namespace std;
 
 void initializeCanvas(vector<vector<string>>& canvas, int sizex, int sizey)
 {
+    //Offset of 1 to allow coordinates to reach up to the size (Can do 100 instead of only 99 when size is 100)
+    sizex += 1;
+    sizey += 1;
+
     canvas.resize(sizex);
  
     for (int y = 0; y < sizey; y++)
@@ -46,7 +50,7 @@ void printCanvas(vector<vector<string>> canvas, int sizex, int sizey)
         cout << "-";
     }
     cout << endl;
-    for (int y = canvas[0].size() - 1; y>0; y--)
+    for (int y = canvas[0].size() - 1; y>=0; y--)
     {
         cout << "|";
         for (int x = 0; x < canvas.size() ;x++)
@@ -64,10 +68,10 @@ void printCanvas(vector<vector<string>> canvas, int sizex, int sizey)
 
 void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
 {
+    
     //if on the same point
     if (one.x == two.x && one.y == two.y)
     {
-       
         return;
     }
 
@@ -82,10 +86,12 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
     int vert_bar_count = 0;
     bool is_horizontal = false;
     bool is_vertical = false;
-
+    
+    
     //Quadrant 1
     if (deltax >= 0 && deltay >= 0)
     {
+       
         //less than 45 degrees (0 to 45)
         if (deltax >= deltay)
         {
@@ -102,32 +108,34 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
             }
             
 
-
-            int xinc = 1;//starts at 1 because we start with a horizontal bar
-            int yinc = 0; // starts at 0 because we start with a horizontal bar
+            
+            int xinc = 0;
+            int yinc = 0; 
             //shift_counter to mark when a slash should be entered
-            int shift_counter = 1;
-            for (int i = 0; i < deltax; i++)
+            int shift_counter = 0;
+            cout << "shift increment" << shift_increment << endl;
+            for (int i = 0; i <= deltax; i++)
             {
+                cout << "x: " << one.x + xinc << endl;
+                cout << "y: " << one.y + yinc << endl;
                 if (shift_counter < shift_increment || is_horizontal)
                 {
                     canvas[one.x + xinc][one.y + yinc] = "-";
 
                     xinc += 1;
                     shift_counter += 1;
-
-                }
-                else if (shift_counter >= shift_increment && !is_horizontal)
-                {
-                    yinc += 1;
-                    canvas[one.x + xinc][one.y + yinc] = "-";
-                    xinc += 1;
-                    shift_counter = 1;
+                    if (shift_counter >= shift_increment && !is_horizontal)
+                    {
+                        yinc += 1;
+                        shift_counter = 0;
+                    }
 
                 }
                 
+                
             }
         }
+
         
         //greater than 45 degrees (45 to 90)
         if (deltay > deltax)
@@ -145,10 +153,10 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
             }
 
             int xinc = 0;
-            int yinc = 1; 
+            int yinc = 0; 
             
-            int shift_counter = 1;
-            for (int i = 0; i < deltay; i++)
+            int shift_counter = 0;
+            for (int i = 0; i <= deltay; i++)
             {
                 if (shift_counter < shift_increment || is_vertical)
                 {
@@ -157,15 +165,14 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
                     yinc += 1;
                     shift_counter += 1;
 
-                }
-                else if (shift_counter >= shift_increment && !is_vertical)
-                {
-                    xinc += 1;
-                    canvas[one.x + xinc][one.y + yinc] = "|";
-                    yinc += 1;
-                    shift_counter = 1;
+                    if (shift_counter >= shift_increment && !is_horizontal)
+                    {
+                        xinc += 1;
+                        shift_counter = 0;
+                    }
 
                 }
+                
             
 
             }
@@ -186,10 +193,10 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
 
 
             int xinc = 0;
-            int yinc = 1;
+            int yinc = 0;
 
-            int shift_counter = 1;
-            for (int i = 0; i < abs(deltay); i++)
+            int shift_counter = 0;
+            for (int i = 0; i <= abs(deltay); i++)
             {
                 if (shift_counter < shift_increment)
                 {
@@ -199,13 +206,10 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
                     shift_counter += 1;
 
                 }
-                else if (shift_counter >= shift_increment)
+                if (shift_counter >= shift_increment && !is_horizontal)
                 {
                     xinc += 1;
-                    canvas[one.x - xinc][one.y + yinc] = "|";
-                    yinc += 1;
-                    shift_counter = 1;
-
+                    shift_counter = 0;
                 }
                
             }
@@ -219,11 +223,11 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
             shift_increment = abs(deltax / deltay);
 
 
-            int xinc = 1;
+            int xinc = 0;
             int yinc = 0;
 
-            int shift_counter = 1;
-            for (int i = 0; i < abs(deltax); i++)
+            int shift_counter = 0;
+            for (int i = 0; i <= abs(deltax); i++)
             {
                 if (shift_counter < shift_increment)
                 {
@@ -233,13 +237,10 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
                     shift_counter += 1;
 
                 }
-                else if (shift_counter >= shift_increment)
+                if (shift_counter >= shift_increment && !is_horizontal)
                 {
                     yinc += 1;
-                    canvas[one.x - xinc][one.y + yinc] = "-";
-                    xinc += 1;
-                    shift_counter = 1;
-
+                    shift_counter = 0;
                 }
 
             }
@@ -267,12 +268,14 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
                 is_horizontal = false;
             }
             
-            int xinc = 1;//starts at 1 because we start with a horizontal bar
-            int yinc = 0; // starts at 0 because we start with a horizontal bar
-            //shift_counter to mark when a slash should be entered
-            int shift_counter = 1;
-            for (int i = 0; i < abs(deltax); i++)
+            int xinc = 0;
+            int yinc = 0; 
+            
+            int shift_counter = 0;
+            for (int i = 0; i <= abs(deltax); i++)
             {
+                cout << "x: " << one.x + xinc << endl;
+                cout << "y: " << one.y + yinc << endl;
                 if (shift_counter < shift_increment || is_horizontal)
                 {
                     canvas[one.x - xinc][one.y - yinc] = "-";
@@ -281,13 +284,10 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
                     shift_counter += 1;
 
                 }
-                else if (shift_counter >= shift_increment && !is_horizontal)
+                if (shift_counter >= shift_increment && !is_horizontal)
                 {
                     yinc += 1;
-                    canvas[one.x - xinc][one.y - yinc] = "-";
-                    xinc += 1;
-                    shift_counter = 1;
-
+                    shift_counter = 0;
                 }
              
             }
@@ -311,10 +311,10 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
             }
 
             int xinc = 0;
-            int yinc = 1; 
+            int yinc = 0; 
             
-            int shift_counter = 1;
-            for (int i = 0; i < abs(deltay); i++)
+            int shift_counter = 0;
+            for (int i = 0; i <= abs(deltay); i++)
             {
                 if (shift_counter < shift_increment || is_vertical)
                 {
@@ -324,13 +324,10 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
                     shift_counter += 1;
 
                 }
-                else if (shift_counter >= shift_increment || is_vertical)
+                if (shift_counter >= shift_increment && !is_horizontal)
                 {
                     xinc += 1;
-                    canvas[one.x - xinc][one.y - yinc] = "|";
-                    yinc += 1;
-                    shift_counter = 1;
-
+                    shift_counter = 0;
                 }
                
             }
@@ -350,10 +347,10 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
             shift_increment = abs(deltay / deltax);
 
             int xinc = 0;
-            int yinc = 1;
+            int yinc = 0;
 
-            int shift_counter = 1;
-            for (int i = 0; i < abs(deltay); i++)
+            int shift_counter = 0;
+            for (int i = 0; i <= abs(deltay); i++)
             {
                 if (shift_counter < shift_increment)
                 {
@@ -363,13 +360,10 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
                     shift_counter += 1;
 
                 }
-                else if (shift_counter >= shift_increment)
+                if (shift_counter >= shift_increment && !is_horizontal)
                 {
                     xinc += 1;
-                    canvas[one.x + xinc][one.y - yinc] = "|";
-                    yinc += 1;
-                    shift_counter = 1;
-
+                    shift_counter = 0;
                 }
           
             }
@@ -383,11 +377,11 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
             shift_increment = abs(deltax / deltay);
 
 
-            int xinc = 1;
+            int xinc = 0;
             int yinc = 0;
 
-            int shift_counter = 1;
-            for (int i = 0; i < deltax; i++)
+            int shift_counter = 0;
+            for (int i = 0; i <= deltax; i++)
             {
                 if (shift_counter < shift_increment)
                 {
@@ -397,13 +391,10 @@ void connectVertices(Vertice one, Vertice two, vector<vector<string>>& canvas)
                     shift_counter += 1;
 
                 }
-                else if (shift_counter >= shift_increment)
+                if (shift_counter >= shift_increment && !is_horizontal)
                 {
                     yinc += 1;
-                    canvas[one.x + xinc][one.y - yinc] = "-";
-                    xinc += 1;
-                    shift_counter = 1;
-
+                    shift_counter = 0;
                 }
            
 
@@ -435,9 +426,13 @@ int main()
     initializeCanvas(canvas, sizex, sizey);
     
     Vertice point1 = Vertice(0, 0, 0);
-    Vertice point2 = Vertice(10, 30, 0);
-    connectVertices(point2, point1, canvas);
+    Vertice point2 = Vertice(100, 50, 0);
+    
+    connectVertices(point1, point2, canvas);
+
     printCanvas(canvas,sizex,sizey);
+
+
     /*
     Vertice transform = Vertice(2, 1, -10);
     //rotation in radians
