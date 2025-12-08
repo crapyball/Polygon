@@ -3,8 +3,8 @@
 
 #include <vector>
 #include "vertice.hpp"
-#include <string>
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
@@ -12,16 +12,30 @@ class Queue
 {
 public: 
 	float scale;
-	int sizex;
-	int sizey;
+	float rotation;
+
+	float sizex;
+	float sizey;
+	float persAngle;
+
+	float persX;
+	float persY;
+	float persZ;
+
 	vector<vector<string>> canvas;
-	Queue(int x, int y);
+
+	vector<vector<Vertice>> faces;
+
+	Queue(float widthx, float widthy, float angle);
 	void setScale(float s);
-	vector<int> convertTo2D(Vertice v);
+	vector<int> convert2D(Vertice v);
 	void initializeCanvas();
 	void resetCanvas();
 	void printCanvas();
-	
+	void connectVertices(vector<int> one, vector<int> two);
+	void run();
+	void addToQueue(vector<Vertice> v);
+
 };
 
 
