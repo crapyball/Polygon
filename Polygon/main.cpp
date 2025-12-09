@@ -21,14 +21,26 @@ int main()
     float heighty = 200;
     float angle = 2 * PI / 3;
     
-    Vertice point1 = Vertice(400, 400, 300);
-    Vertice point2 = Vertice(600, 400, 300);
-    Vertice point3 = Vertice(600, 600, 300);
-    Vertice point4 = Vertice(400, 600, 300);
+    
 
     Queue queue = Queue(widthx, heighty, angle);
+
     vector<Vertice> face1 = { Vertice(400, 400, 300), Vertice(600, 400, 300), Vertice(600, 600, 300), Vertice(400, 600, 300) };
-    queue.addToQueue(face1);
+    vector<Vertice> face2 = { Vertice(400, 400, 700), Vertice(600, 400, 700), Vertice(600, 600, 700), Vertice(400, 600, 700) };
+
+    //vector<Vertice> face3 = { Vertice(400, 400, 300), Vertice(400, 600, 300), Vertice(400, 600, 700), Vertice(400, 400, 700) };
+    vector<Vertice> face3 = { Vertice(400, 400, 700), Vertice(400, 600, 700), Vertice(400, 600, 300), Vertice(400, 400, 300) };
+
+    vector<Vertice> face4 = { Vertice(600, 400, 300), Vertice(600, 600, 300), Vertice(600, 600, 700), Vertice(600, 400, 700) };
+
+    vector<Vertice> face5 = { Vertice(400, 400, 300), Vertice(600, 400, 300), Vertice(600, 400, 700), Vertice(400, 400, 700) };
+    vector<Vertice> face6 = { Vertice(400, 600, 300), Vertice(600, 600, 300), Vertice(600, 600, 700), Vertice(400, 600, 700) };
+    //queue.addToQueue(face1);
+    //queue.addToQueue(face2);
+    queue.addToQueue(face3);
+   // queue.addToQueue(face4);
+   // queue.addToQueue(face5);
+    //queue.addToQueue(face6);
 
 
     //this_thread::sleep_for(chrono::duration<double>(.15));

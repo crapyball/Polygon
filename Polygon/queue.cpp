@@ -163,9 +163,10 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
         //greater than 45 degrees (45 to 90)
         if (deltay > deltax)
         {
-            
+            cout << "mark";
             shift_count = deltax;
             vert_bar_count = deltay - shift_count;
+
             if (deltax == 0)
             {
                 is_vertical = true;
@@ -174,6 +175,18 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
             else {
                 shift_increment = deltay / deltax;
                 is_vertical = false;
+            }
+
+            if (!is_vertical)
+            {
+                //cout << "Point 1 X: " << one[0] << endl;
+                //cout << "Point 1 Y: " << one[1] << endl;
+                //cout << "Point 2 X: " << two[0] << endl;
+                //cout << "Point 2 Y: " << two[1] << endl;
+                //cout << "deltaY: " << deltay;
+                //cout << "deltaX: " << deltax;
+                
+
             }
 
             int xinc = 0;
@@ -200,6 +213,8 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
 
 
             }
+            canvas[one[0]][one[1]] = "X";
+            canvas[two[0]][two[1]] = "X";
 
         }
 
@@ -237,6 +252,7 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
                 }
 
             }
+            
         }
 
         //135 to 180
@@ -316,7 +332,8 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
 
         //225 to 270
         if (abs(deltay) > abs(deltax))
-        {
+        { 
+            //cout << "mark";
             shift_count = abs(deltax);
             vert_bar_count = abs(deltay) - shift_count;
 
