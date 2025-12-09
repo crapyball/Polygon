@@ -28,24 +28,27 @@ int main()
     vector<Vertice> face1 = { Vertice(400, 400, 300), Vertice(600, 400, 300), Vertice(600, 600, 300), Vertice(400, 600, 300) };
     vector<Vertice> face2 = { Vertice(400, 400, 700), Vertice(600, 400, 700), Vertice(600, 600, 700), Vertice(400, 600, 700) };
 
-    //vector<Vertice> face3 = { Vertice(400, 400, 300), Vertice(400, 600, 300), Vertice(400, 600, 700), Vertice(400, 400, 700) };
-    vector<Vertice> face3 = { Vertice(400, 400, 700), Vertice(400, 600, 700), Vertice(400, 600, 300), Vertice(400, 400, 300) };
+    vector<Vertice> face3 = { Vertice(400, 400, 300), Vertice(400, 600, 300), Vertice(400, 600, 700), Vertice(400, 400, 700) };
+    //vector<Vertice> face3 = { Vertice(400, 400, 700), Vertice(400, 600, 700), Vertice(400, 600, 300), Vertice(400, 400, 300) };
 
     vector<Vertice> face4 = { Vertice(600, 400, 300), Vertice(600, 600, 300), Vertice(600, 600, 700), Vertice(600, 400, 700) };
 
     vector<Vertice> face5 = { Vertice(400, 400, 300), Vertice(600, 400, 300), Vertice(600, 400, 700), Vertice(400, 400, 700) };
     vector<Vertice> face6 = { Vertice(400, 600, 300), Vertice(600, 600, 300), Vertice(600, 600, 700), Vertice(400, 600, 700) };
-    //queue.addToQueue(face1);
-    //queue.addToQueue(face2);
+    queue.addToQueue(face1);
+    queue.addToQueue(face2);
     queue.addToQueue(face3);
-   // queue.addToQueue(face4);
-   // queue.addToQueue(face5);
-    //queue.addToQueue(face6);
+    queue.addToQueue(face4);
+    queue.addToQueue(face5);
+    queue.addToQueue(face6);
 
-
+    vector<Vertice> test = { Vertice(400, 400, 300), Vertice(500, 1000, 300) };
+    //queue.addToQueue(test);
+    //queue.connectVertices(queue.convert2D(test[0]), queue.convert2D(test[1]));
+    //queue.printCanvas();
     //this_thread::sleep_for(chrono::duration<double>(.15));
     queue.run();
-    
+   
     
     while (true)
     {

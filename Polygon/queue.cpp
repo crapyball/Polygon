@@ -101,13 +101,22 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
 
     int deltax = two[0] - one[0];
     int deltay = two[1] - one[1];
-    //cout << "x: " << deltax;
-    //cout << "y: " << deltay;
+    
+
+    
+    int dash_count = 0;
+    int vert_bar_count = 0;
 
     int shift_count = 0;
-    int dash_count = 0;
     int shift_increment = 0;
-    int vert_bar_count = 0;
+    int shift_counter = 0;
+
+    
+
+    int halts;
+    int halt_increment;
+    int halt_counter = 0;
+
     bool is_horizontal = false;
     bool is_vertical = false;
 
@@ -115,10 +124,15 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
     //Quadrant 1
     if (deltax >= 0 && deltay >= 0)
     {
-
+        
+        
         //less than 45 degrees (0 to 45)
         if (deltax >= deltay)
         {
+            //cout << "mark";
+            cout << "deltax: " << deltax << endl;
+            cout << "deltay: " << deltay << endl;
+
             shift_count = deltay;
             dash_count = deltax - shift_count;
             if (deltay == 0)
@@ -128,6 +142,18 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
             }
             else {
                 shift_increment = deltax / deltay;
+
+                halts = (deltax % deltay) / shift_increment;
+                if (halts == 0)
+                {
+                    halt_increment = deltax;
+                }
+                else
+                {
+                    halt_increment = deltay / halts;
+                }
+                
+
                 is_horizontal = false;
             }
 
@@ -136,7 +162,8 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
             int xinc = 0;
             int yinc = 0;
             //shift_counter to mark when a slash should be entered
-            int shift_counter = 0;
+            
+
 
             for (int i = 0; i <= deltax; i++)
             {
@@ -149,8 +176,17 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
                     shift_counter += 1;
                     if (shift_counter >= shift_increment && !is_horizontal)
                     {
-                        yinc += 1;
-                        shift_counter = 0;
+                        if (halt_counter < halt_increment)
+                        {
+                            yinc += 1;
+                            shift_counter = 0;
+                            halt_counter += 1;
+                        }
+                        else
+                        {
+                            halt_counter = 0;
+                            shift_counter = 0;
+                        }
                     }
 
                 }
@@ -163,7 +199,10 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
         //greater than 45 degrees (45 to 90)
         if (deltay > deltax)
         {
-            cout << "mark";
+            
+            
+            
+            //cout << "mark";
             shift_count = deltax;
             vert_bar_count = deltay - shift_count;
 
@@ -174,25 +213,23 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
             }
             else {
                 shift_increment = deltay / deltax;
+
+                halts = (deltay % deltax) / shift_increment;
+                if (halts == 0)
+                {
+                    halt_increment = deltay;
+                }
+                else
+                {
+                    halt_increment = deltax / halts;
+                }
                 is_vertical = false;
             }
-
-            if (!is_vertical)
-            {
-                //cout << "Point 1 X: " << one[0] << endl;
-                //cout << "Point 1 Y: " << one[1] << endl;
-                //cout << "Point 2 X: " << two[0] << endl;
-                //cout << "Point 2 Y: " << two[1] << endl;
-                //cout << "deltaY: " << deltay;
-                //cout << "deltaX: " << deltax;
-                
-
-            }
-
+            
+            
             int xinc = 0;
             int yinc = 0;
-
-            int shift_counter = 0;
+            
             for (int i = 0; i <= deltay; i++)
             {
                 if (shift_counter < shift_increment || is_vertical)
@@ -204,21 +241,28 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
 
                     if (shift_counter >= shift_increment && !is_vertical)
                     {
-                        xinc += 1;
-                        shift_counter = 0;
+                        if (halt_counter < halt_increment)
+                        {
+                            xinc += 1;
+                            shift_counter = 0;
+                            halt_counter += 1;
+                        }
+                        else
+                        {
+                            halt_counter = 0;
+                            shift_counter = 0;
+                        }
+                        
+                        
                     }
 
                 }
-
-
-
             }
-            canvas[one[0]][one[1]] = "X";
-            canvas[two[0]][two[1]] = "X";
-
+            
         }
 
     }
+    
     if (deltax < 0 && deltay > 0)
     {
         // (90 to 135)
@@ -228,13 +272,23 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
             vert_bar_count = abs(deltay) - shift_count;
             shift_increment = abs(deltay / deltax);
 
+            halts = (abs(deltay) % abs(deltax)) / shift_increment;
+            if (halts == 0)
+            {
+                halt_increment = abs(deltay);
+            }
+            else
+            {
+                halt_increment = abs(deltax) / halts;
+            }
+
 
 
 
             int xinc = 0;
             int yinc = 0;
 
-            int shift_counter = 0;
+           
             for (int i = 0; i <= abs(deltay); i++)
             {
                 if (shift_counter < shift_increment)
@@ -247,8 +301,17 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
                 }
                 if (shift_counter >= shift_increment && !is_horizontal)
                 {
-                    xinc += 1;
-                    shift_counter = 0;
+                    if (halt_counter < halt_increment)
+                    {
+                        xinc += 1;
+                        shift_counter = 0;
+                        halt_counter += 1;
+                    }
+                    else
+                    {
+                        halt_counter = 0;
+                        shift_counter = 0;
+                    }
                 }
 
             }
@@ -262,11 +325,21 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
             dash_count = abs(deltax - shift_count);
             shift_increment = abs(deltax / deltay);
 
+            halts = (abs(deltax) % abs(deltay)) / shift_increment;
+            if (halts == 0)
+            {
+                halt_increment = abs(deltax);
+            }
+            else
+            {
+                halt_increment = abs(deltay) / halts;
+            }
+
 
             int xinc = 0;
             int yinc = 0;
 
-            int shift_counter = 0;
+            
             for (int i = 0; i <= abs(deltax); i++)
             {
                 if (shift_counter < shift_increment)
@@ -279,8 +352,17 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
                 }
                 if (shift_counter >= shift_increment && !is_horizontal)
                 {
-                    yinc += 1;
-                    shift_counter = 0;
+                    if (halt_counter < halt_increment)
+                    {
+                        yinc += 1;
+                        shift_counter = 0;
+                        halt_counter += 1;
+                    }
+                    else
+                    {
+                        halt_counter = 0;
+                        shift_counter = 0;
+                    }
                 }
 
             }
@@ -302,13 +384,24 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
             }
             else {
                 shift_increment = abs(deltax / deltay);
+
+                halts = (abs(deltax) % abs(deltay)) / shift_increment;
+                if (halts == 0)
+                {
+                    halt_increment = abs(deltax);
+                }
+                else
+                {
+                    halt_increment = abs(deltay) / halts;
+                }
+
                 is_horizontal = false;
             }
 
             int xinc = 0;
             int yinc = 0;
 
-            int shift_counter = 0;
+            
             for (int i = 0; i <= abs(deltax); i++)
             {
 
@@ -322,8 +415,17 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
                 }
                 if (shift_counter >= shift_increment && !is_horizontal)
                 {
-                    yinc += 1;
-                    shift_counter = 0;
+                    if (halt_counter < halt_increment)
+                    {
+                        yinc += 1;
+                        shift_counter = 0;
+                        halt_counter += 1;
+                    }
+                    else
+                    {
+                        halt_counter = 0;
+                        shift_counter = 0;
+                    }
                 }
 
             }
@@ -344,13 +446,23 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
             }
             else {
                 shift_increment = abs(deltay / deltax);
+
+                halts = (abs(deltay) % abs(deltax)) / shift_increment;
+                if (halts == 0)
+                {
+                    halt_increment = abs(deltay);
+                }
+                else
+                {
+                    halt_increment = abs(deltax) / halts;
+                }
+
                 is_vertical = false;
             }
 
             int xinc = 0;
             int yinc = 0;
 
-            int shift_counter = 0;
             for (int i = 0; i <= abs(deltay); i++)
             {
                 if (shift_counter < shift_increment || is_vertical)
@@ -363,8 +475,17 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
                 }
                 if (shift_counter >= shift_increment && !is_vertical)
                 {
-                    xinc += 1;
-                    shift_counter = 0;
+                    if (halt_counter < halt_increment)
+                    {
+                        xinc += 1;
+                        shift_counter = 0;
+                        halt_counter += 1;
+                    }
+                    else
+                    {
+                        halt_counter = 0;
+                        shift_counter = 0;
+                    }
                 }
 
             }
@@ -383,10 +504,20 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
             vert_bar_count = abs(deltay) - shift_count;
             shift_increment = abs(deltay / deltax);
 
+            halts = (abs(deltay) % abs(deltax)) / shift_increment;
+            if (halts == 0)
+            {
+                halt_increment = abs(deltay);
+            }
+            else
+            {
+                halt_increment = abs(deltax) / halts;
+            }
+
             int xinc = 0;
             int yinc = 0;
 
-            int shift_counter = 0;
+            
             for (int i = 0; i <= abs(deltay); i++)
             {
                 if (shift_counter < shift_increment)
@@ -399,8 +530,17 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
                 }
                 if (shift_counter >= shift_increment && !is_horizontal)
                 {
-                    xinc += 1;
-                    shift_counter = 0;
+                    if (halt_counter < halt_increment)
+                    {
+                        xinc += 1;
+                        shift_counter = 0;
+                        halt_counter += 1;
+                    }
+                    else
+                    {
+                        halt_counter = 0;
+                        shift_counter = 0;
+                    }
                 }
 
             }
@@ -413,11 +553,21 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
             dash_count = abs(deltax - shift_count);
             shift_increment = abs(deltax / deltay);
 
+            halts = (abs(deltax) % abs(deltay)) / shift_increment;
+            if (halts == 0)
+            {
+                halt_increment = abs(deltax);
+            }
+            else
+            {
+                halt_increment = abs(deltay) / halts;
+            }
+
 
             int xinc = 0;
             int yinc = 0;
 
-            int shift_counter = 0;
+            
             for (int i = 0; i <= deltax; i++)
             {
                 if (shift_counter < shift_increment)
@@ -430,14 +580,25 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
                 }
                 if (shift_counter >= shift_increment && !is_horizontal)
                 {
-                    yinc += 1;
-                    shift_counter = 0;
+                    if (halt_counter < halt_increment)
+                    {
+                        yinc += 1;
+                        shift_counter = 0;
+                        halt_counter += 1;
+                    }
+                    else
+                    {
+                        halt_counter = 0;
+                        shift_counter = 0;
+                    }
                 }
 
 
             }
         }
     }
+    canvas[one[0]][one[1]] = "X";
+    canvas[two[0]][two[1]] = "X";
 }
 
 void Queue::run()
