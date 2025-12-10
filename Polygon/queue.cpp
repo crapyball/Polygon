@@ -92,6 +92,46 @@ vector<int> Queue::convert2D(Vertice v)
 
 void Queue::connectVertices(vector<int> one, vector<int> two)
 {
+    //if on the same point
+    if (one[0] == two[0] && one[1] == two[1])
+    {
+        return;
+    }
+
+    vector<int> a_one = { one[0] + (int)sizex / 2,one[1] + (int)sizey / 2 };
+    vector<int> a_two = { two[0] + (int)sizex / 2,two[1] + (int)sizey / 2 };
+
+    int deltax = two[0] - one[0];
+    int deltay = two[1] - one[1];
+
+
+    cout << deltax<<endl;
+    cout << deltay<<endl;
+
+    float scalar = 1/sqrt(pow(deltax, 2) + pow(deltay, 2));
+    vector<float> unit_v = {deltax * scalar, deltay * scalar};
+
+    vector<float> curr_v = {deltax * scalar, deltay * scalar};
+    vector<int> old_v = { 0,0 };
+    
+    for (int i = 0; (abs(curr_v[0]) <= abs(deltax)) && (abs(curr_v[1]) <= abs(deltay)); i++)
+    {
+        if ((int)curr_v[0] > old_v[0])
+        {
+
+        }
+        curr_v[0] += unit_v[0];
+        curr_v[1] += unit_v[1];
+        cout << "x: " << curr_v[0] << endl;
+        cout << "y: " << curr_v[1] << endl;
+    }
+    
+
+}
+/*
+void Queue::connectVertices(vector<int> one, vector<int> two)
+{
+    
 
     //if on the same point
     if (one[0] == two[0] && one[1] == two[1])
@@ -600,6 +640,8 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
     canvas[one[0]][one[1]] = "X";
     canvas[two[0]][two[1]] = "X";
 }
+*/
+
 
 void Queue::run()
 {

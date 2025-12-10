@@ -42,13 +42,15 @@ int main()
     queue.addToQueue(face5);
     queue.addToQueue(face6);
 
-    vector<Vertice> test = { Vertice(400, 400, 300), Vertice(500, 1000, 300) };
+    vector<Vertice> test = { Vertice(40, 8, 70), Vertice(-50, 20, 70)};
     //queue.addToQueue(test);
     //queue.connectVertices(queue.convert2D(test[0]), queue.convert2D(test[1]));
     //queue.printCanvas();
     //this_thread::sleep_for(chrono::duration<double>(.15));
-    queue.run();
-   
+    //queue.run();
+    //cout << queue.convert2D(test[0])[0] << endl;
+    //cout << queue.convert2D(test[0])[1];
+    queue.connectVertices(queue.convert2D(test[0]), queue.convert2D(test[1]));
     
     while (true)
     {

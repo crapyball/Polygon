@@ -33,8 +33,10 @@ public:
 	void resetCanvas();
 	void printCanvas();
 	void connectVertices(vector<int> one, vector<int> two);
+
 	void run();
 	void addToQueue(vector<Vertice> v);
+
 
 };
 
