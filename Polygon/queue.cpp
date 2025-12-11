@@ -101,6 +101,8 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
     vector<int> a_one = { one[0] + (int)sizex / 2,one[1] + (int)sizey / 2 };
     vector<int> a_two = { two[0] + (int)sizex / 2,two[1] + (int)sizey / 2 };
 
+    
+
     int deltax = two[0] - one[0];
     int deltay = two[1] - one[1];
 
@@ -116,17 +118,17 @@ void Queue::connectVertices(vector<int> one, vector<int> two)
     
     for (int i = 0; (abs(curr_v[0]) <= abs(deltax)) && (abs(curr_v[1]) <= abs(deltay)); i++)
     {
-        if ((int)curr_v[0] > old_v[0])
-        {
-
-        }
+        canvas[a_one[0] + curr_v[0]][a_one[1] + curr_v[1]] = "-";
         curr_v[0] += unit_v[0];
         curr_v[1] += unit_v[1];
-        cout << "x: " << curr_v[0] << endl;
-        cout << "y: " << curr_v[1] << endl;
+
+        
+        //cout << "x: " << curr_v[0] << endl;
+        //cout << "y: " << curr_v[1] << endl;
     }
     
-
+    canvas[a_one[0]][a_one[1]] = "X";
+    canvas[a_two[0]][a_two[1]] = "X";
 }
 /*
 void Queue::connectVertices(vector<int> one, vector<int> two)
